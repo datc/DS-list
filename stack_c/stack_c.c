@@ -5,10 +5,10 @@ void stack(){
 	printf("%s\n--STACK", "stack");
 }
 
- void InitStack(struct SqStack s){
+void InitStack(struct SqStack s){
  	s.stacksize = 0;
-// 	s.top = NULL;
-// 	s.base = NULL;
+	s.top = NULL;
+	s.base = NULL;
 // 	// return 1;
  }
 

@@ -7,13 +7,14 @@ package main
 import "C"
 import (
 	"fmt"
+	. "github.com/toukii/equal"
 )
 
 func main() {
 	var Stk C.struct_SqStack
 	C.stack()
- C.InitStack(Stk)
-	fmt.Println(Stk)
+	fmt.Println(Stk.stacksize)
+	Equal(nil, 0, Stk.stacksize)
 }
 
 func test() {
