@@ -1,25 +1,19 @@
 package main
 
 /*
-#include "./stack_c.cpp"
+#include "./stack_c.c"
 
 */
 import "C"
 import (
 	"fmt"
-	// "unsafe"
 )
 
 func main() {
-	type Stk C.struct_SqStack
+	var Stk C.struct_SqStack
 	C.stack()
-	// top := (*C.int)(unsafe.Pointer(nil))
-	// stk := Stk{}
-	stk := Stk{}
-	stk.Stacksize = 3
-	fmt.Println(stk, C.STACK_INIT_SIZE)
-	// C.free
-	test()
+	// C.InitStack(Stk)
+	fmt.Println(Stk)
 }
 
 func test() {
