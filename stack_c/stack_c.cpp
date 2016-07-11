@@ -13,8 +13,8 @@ struct Stack
 };
 
 extern void Display(struct Stack stk);
-int before(int * top,int* base){
-	return base - top;
+int before(int * a,int* b){
+	return a - b;
 }
 
 int index(int * base,int length){
@@ -32,7 +32,7 @@ int Size(Stack stk){
 }
 
 int Length(struct Stack stk){
-
+	return before(stk.top,stk.base);
 }
 
 bool IsEmpty(struct Stack stk){
@@ -40,7 +40,7 @@ bool IsEmpty(struct Stack stk){
 }
 
 bool IsFull(struct Stack stk){
-	if (before(stk.top,stk.base) >= Size(stk))
+	if (Length(stk) >= Size(stk))
 	{
 		return true;
 	}

@@ -13,7 +13,7 @@ import (
 //export Display
 func Display(stk C.struct_Stack) {
 	fmt.Printf("Stack size:%d\n", stk.size)
-	length := C.before(stk.base, stk.top)
+	length := C.before(stk.top, stk.base)
 	if length <= 0 {
 		return
 	}
@@ -63,6 +63,6 @@ func TestPush() {
 }
 
 func main() {
-	TestInit()
+	// TestInit()
 	TestStack()
 }
