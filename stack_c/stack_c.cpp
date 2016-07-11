@@ -36,7 +36,7 @@ int Length(struct Stack stk){
 }
 
 bool IsEmpty(struct Stack stk){
-
+	return Length(stk)<=0;
 }
 
 bool IsFull(struct Stack stk){
@@ -58,11 +58,24 @@ bool Push(struct Stack * stk,int v){
 }
 
 int Pop(struct Stack * stk,bool * ok){
-
+	if (IsEmpty(*stk))
+	{
+		*ok = false;
+		return -1;
+	}
+	*ok = true;
+	(stk->top)--;
+	return *(stk->top);
 }
 
 int Seek(struct Stack stk,bool * ok){
-
+if (IsEmpty(stk))
+	{
+		*ok = false;
+		return -1;
+	}
+	*ok = true;
+	return *(stk.top - 1);
 }
   
 }  
