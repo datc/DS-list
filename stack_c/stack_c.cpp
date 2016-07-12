@@ -5,11 +5,23 @@ extern "C" {
 #define true 1
 #define false 0
 
+struct node{
+	int v;
+	struct node * pre;
+};
+
+struct node * NewNode(struct node * pre, int v){
+	struct node nd;
+	nd.v = v;
+	nd.pre = pre;
+	return &nd;	
+}
+
 struct Stack
 {
-	int * base;
-	int * top;
+	struct node * top;
 	int size;
+	int length;
 };
 
 /*
@@ -24,18 +36,12 @@ int before(int * a,int* b){
 	return a - b;
 }
 
-/*
-* Go 不能直接索引，需要提供该函数
-*/
-int indexing(int * base,int length){
-	return base[length];
-}
 
 // 初始化
 void Init(struct Stack * stk,int size){
-	stk->base = new int[size];
-	stk->top = stk->base;
+	stk->top = NewNode(0,NULL);
 	stk->size = size;
+	stk->length = 0;
 }
 
 // 栈容量
@@ -45,7 +51,7 @@ int Capacity(Stack stk){
 
 // 栈大小
 int Length(struct Stack stk){
-	return before(stk.top,stk.base);
+	return stk.length;
 }
 
 // 是否为空
@@ -68,8 +74,9 @@ bool Push(struct Stack * stk,int v){
 	{
 		return false;
 	}
-	*(stk->top) = v;
-	(stk->top)++;
+	struct node * nd = NewNode(stk->top, v);
+	stk->top = nd;
+	stk->length++;
 	return true;
 }
 
@@ -81,19 +88,26 @@ int Pop(struct Stack * stk,bool * ok){
 		return -1;
 	}
 	*ok = true;
-	(stk->top)--;
-	return *(stk->top);
+	stk->length--;
+	int v = stk->top->v;
+	stk->top = stk->top->pre;
+	return v;
 }
 
 // 查看栈顶元素
 int Seek(struct Stack stk,bool * ok){
-if (IsEmpty(stk))
+	if (IsEmpty(stk))
 	{
 		*ok = false;
 		return -1;
 	}
 	*ok = true;
-	return *(stk.top - 1);
+	struct node* nd = stk.top;
+	if(NULL == nd){
+		*ok = false;
+		return 0;
+	}	
+	return nd->v;
 }
 
 }

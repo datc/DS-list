@@ -7,35 +7,38 @@ import "C"
 
 import (
 	"fmt"
+
 	. "github.com/toukii/assert"
 )
 
 //export Display
 func Display(stk C.struct_Stack) {
 	fmt.Printf("Stack size:%d\n", stk.size)
-	length := C.before(stk.top, stk.base)
-	if length <= 0 {
-		return
-	}
-	fmt.Print("[")
-	for {
-		if length <= 0 {
-			break
-		}
-		length--
-		fmt.Printf("%d ", C.indexing(stk.base, length))
-	}
-	fmt.Println("]")
+	fmt.Printf("Stack length:%d\n", stk.length)
+	//	if nil == stk.top {
+	//		return
+	//	}
+	//	fmt.Print("[")
+	//	var ptr *C.struct_node
+	//	ptr = stk.top
+	//	for {
+	//		if nil == ptr {
+	//			break
+	//		}
+	//		fmt.Printf("%d ", ptr.v)
+	//		ptr = ptr.pre
+	//	}
+	//	fmt.Println("]")
 }
 
-func TestStack() {
-	var stk C.struct_Stack
-	C.Init(&stk, 11)
-	C.Display(stk)
-	ok := C.Push(&stk, 1)
-	Equal(nil, C.int(1), C.Length(stk), C.bool(1), ok)
-	C.Display(stk)
-}
+//func TestStack() {
+//	var stk C.struct_Stack
+//	C.Init(&stk, 11)
+//	C.Display(stk)
+//	ok := C.Push(&stk, 1)
+//	Equal(nil, C.int(1), C.Length(stk), C.bool(1), ok)
+//	C.Display(stk)
+//}
 
 func TestInit() {
 	var stk C.struct_Stack
@@ -62,5 +65,5 @@ func TestPush() {
 func main() {
 	TestInit()
 	TestPush()
-	TestStack()
+	//	TestStack()
 }

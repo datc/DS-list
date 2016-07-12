@@ -8,11 +8,17 @@ extern "C" {
 typedef int bool;
 #define true 1
 #define false 0
+
+struct node{
+	int v;
+	struct node * pre;
+};
+
 struct Stack
 {
-	int * base;
-	int * top;
+	struct node * top;
 	int size;
+	int length;
 };
 
 void Display(struct Stack stk);
