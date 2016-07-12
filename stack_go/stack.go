@@ -27,7 +27,7 @@ func (s *Stack) Init(size int) {
 	s.ptr = nil
 }
 
-func (s Stack) Size() int {
+func (s Stack) Capacity() int {
 	return s.size
 }
 

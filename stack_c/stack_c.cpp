@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-extern "C" {  
+extern "C" {
 
 #define true 1
 #define false 0
@@ -27,7 +27,7 @@ int before(int * a,int* b){
 /*
 * Go 不能直接索引，需要提供该函数
 */
-int index(int * base,int length){
+int indexing(int * base,int length){
 	return base[length];
 }
 
@@ -39,7 +39,7 @@ void Init(struct Stack * stk,int size){
 }
 
 // 栈容量
-int Size(Stack stk){
+int Capacity(Stack stk){
 	return stk.size;
 }
 
@@ -55,7 +55,7 @@ bool IsEmpty(struct Stack stk){
 
 // 是否满栈
 bool IsFull(struct Stack stk){
-	if (Length(stk) >= Size(stk))
+	if (Length(stk) >= Capacity(stk))
 	{
 		return true;
 	}
@@ -95,5 +95,5 @@ if (IsEmpty(stk))
 	*ok = true;
 	return *(stk.top - 1);
 }
-  
-}  
+
+}

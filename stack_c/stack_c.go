@@ -7,7 +7,7 @@ import "C"
 
 import (
 	"fmt"
-	. "github.com/toukii/equal"
+	. "github.com/toukii/assert"
 )
 
 //export Display
@@ -23,7 +23,7 @@ func Display(stk C.struct_Stack) {
 			break
 		}
 		length--
-		fmt.Printf("%d ", C.index(stk.base, length))
+		fmt.Printf("%d ", C.indexing(stk.base, length))
 	}
 	fmt.Println("]")
 }
@@ -33,18 +33,15 @@ func TestStack() {
 	C.Init(&stk, 11)
 	C.Display(stk)
 	ok := C.Push(&stk, 1)
-	fmt.Println("ok:", ok)
-	if ok == 1 {
-		fmt.Println("...")
-	}
+	Equal(nil, C.int(1), C.Length(stk), C.bool(1), ok)
 	C.Display(stk)
 }
 
 func TestInit() {
 	var stk C.struct_Stack
 	C.Init(&stk, 3)
-	Equal(nil, 2, C.Size(stk))
-	// Equal(t, true, stk.IsEmpty())
+	Equal(nil, C.int(3), C.Capacity(stk))
+	Equal(nil, C.bool(1), C.IsEmpty(stk))
 }
 
 func TestPush() {
@@ -52,17 +49,18 @@ func TestPush() {
 	C.Init(&stk, 2)
 	C.Push(&stk, 1)
 	C.Push(&stk, 2)
-	Equal(nil, 2, C.Length(stk))
+	Equal(nil, C.int(2), C.Length(stk))
 	var ok C.bool
 	v := C.Seek(stk, &ok)
-	Equal(nil, 2, v, true, ok, 2, C.Length(stk))
+	Equal(nil, C.int(2), v, C.bool(1), ok, C.int(2), C.Length(stk))
 	ok = C.Push(&stk, 3)
-	Equal(nil, 2, C.Length(stk), false, ok)
+	Equal(nil, C.int(2), C.Length(stk), C.bool(0), ok)
 	v = C.Pop(&stk, &ok)
-	Equal(nil, 2, v, true, ok, 1, C.Length(stk))
+	Equal(nil, C.int(2), v, C.bool(1), ok, C.int(1), C.Length(stk))
 }
 
 func main() {
-	// TestInit()
+	TestInit()
+	TestPush()
 	TestStack()
 }
