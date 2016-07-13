@@ -22,9 +22,10 @@ struct Stack
 };
 
 void Display(struct Stack stk);
-int before(int * a,int* b);
-int indexing(int * base,int length);
+struct node* pre(struct node * nd);
 
+void test();
+void display(struct Stack stk);
 void Init(struct Stack * stk,int size);
 int Capacity(struct Stack stk);
 int Length(struct Stack stk);

@@ -10,11 +10,11 @@ struct node{
 	struct node * pre;
 };
 
-struct node * NewNode(struct node * pre, int v){
-	struct node nd;
-	nd.v = v;
-	nd.pre = pre;
-	return &nd;	
+struct node* NewNode(struct node * pre, int v){
+	struct node* nd = new node;
+	nd->v = v;
+	nd->pre = pre;
+	return nd;	
 }
 
 struct Stack
@@ -32,14 +32,28 @@ extern void Display(struct Stack stk);
 /*
 * 判断栈顶元素距离栈底高度，Go不能做指针运算，需要提供该函数
 */
-int before(int * a,int* b){
-	return a - b;
+struct node * pre(struct node * nd){
+	if (NULL != nd)
+	{
+		return nd->pre;
+	}
+	return NULL;
 }
 
+void display(struct node * nd){
+	int a;
+	cout<<"\n\n********************************\n";
+	while(nd!=NULL){
+		cout<<nd->v<<"|";
+		// nd=nd->pre;
+		nd = pre(nd);
+		if(a++>10) break;
+	}
+}
 
 // 初始化
 void Init(struct Stack * stk,int size){
-	stk->top = NewNode(0,NULL);
+	stk->top = NULL;
 	stk->size = size;
 	stk->length = 0;
 }
@@ -74,8 +88,7 @@ bool Push(struct Stack * stk,int v){
 	{
 		return false;
 	}
-	struct node * nd = NewNode(stk->top, v);
-	stk->top = nd;
+	stk->top = NewNode(stk->top, v);
 	stk->length++;
 	return true;
 }
@@ -96,18 +109,23 @@ int Pop(struct Stack * stk,bool * ok){
 
 // 查看栈顶元素
 int Seek(struct Stack stk,bool * ok){
-	if (IsEmpty(stk))
+	if (NULL == stk.top)
 	{
 		*ok = false;
-		return -1;
+		return 0;
 	}
 	*ok = true;
-	struct node* nd = stk.top;
-	if(NULL == nd){
-		*ok = false;
-		return 0;
-	}	
-	return nd->v;
+	return stk.top->v;
+}
+
+void test(){
+	Stack stk;
+	Init(&stk,3);
+	Push(&stk,101);
+	Push(&stk,102);
+	bool ok = false;
+	int v = Seek(stk,&ok);
+	cout<<"\nseek:"<<v<<":"<<ok<<endl;
 }
 
 }
