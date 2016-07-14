@@ -19,6 +19,7 @@ func Display(stk C.struct_Stack) {
 	p := stk.top
 	for {
 		if p == nil {
+			fmt.Println("...", p == nil)
 			break
 		}
 		fmt.Print(p.v, "|")
@@ -32,6 +33,7 @@ func TestInit() {
 	C.Init(&stk, 3)
 	Equal(nil, C.int(3), C.Capacity(stk))
 	Equal(nil, C.bool(1), C.IsEmpty(stk))
+	C.Destory(stk)
 }
 
 func TestPush() {
@@ -58,10 +60,10 @@ func TestPush() {
 
 	C.display(stk)
 	Display(stk)
+	C.Destory(stk)
 }
 
 func main() {
 	TestInit()
 	TestPush()
-	//	TestStack()
 }

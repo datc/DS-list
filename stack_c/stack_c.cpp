@@ -103,7 +103,9 @@ int Pop(struct Stack * stk,bool * ok){
 	*ok = true;
 	stk->length--;
 	int v = stk->top->v;
+	struct node * n = stk->top;
 	stk->top = stk->top->pre;
+	delete n;
 	return v;
 }
 
@@ -118,6 +120,25 @@ int Seek(struct Stack stk,bool * ok){
 	return stk.top->v;
 }
 
+void Destory(struct Stack stk){
+	struct node * n = stk.top;
+	struct node * tmp;
+	while(n != NULL){
+		tmp = n->pre;
+		cout<<"destory:"<<n->v<<endl;
+		delete n;
+		n = tmp;
+		if (stk.length-- <0)
+		{
+			break;
+		}
+	}
+	stk.top = NULL;
+	stk.size = 0;
+	stk.length = 0;
+	cout<<"stack destoried, stack.top is NULL:"<<(stk.top==NULL)<<endl;
+}
+
 void test(){
 	Stack stk;
 	Init(&stk,3);
@@ -126,6 +147,7 @@ void test(){
 	bool ok = false;
 	int v = Seek(stk,&ok);
 	cout<<"\nseek:"<<v<<":"<<ok<<endl;
+	Destory(stk);
 }
 
 }
