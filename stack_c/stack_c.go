@@ -19,7 +19,6 @@ func Display(stk C.struct_Stack) {
 	p := stk.top
 	for {
 		if p == nil {
-			fmt.Println("...", p == nil)
 			break
 		}
 		fmt.Print(p.v, "|")
